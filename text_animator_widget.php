@@ -28,6 +28,9 @@ function wordEffects($input, $second, $milisecond, $iteration, $effects, $class,
     $delay          = 0;
     $point          = 0;
     $count          = 0;
+	if ($iteration == ''){
+		$iteration = 0;
+	}
     //iterate through each word
     echo "<$tag class='$class' style='$style'>";
     foreach ($output as $word) {
