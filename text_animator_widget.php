@@ -15,24 +15,23 @@ function wordEffects($input, $second, $milisecond, $iteration, $effects, $class,
     //$class = add class to each word
     //$style = add style to each word
     //set default values for first word
-    $output       = array();
-	if ($wordOrletter == "word"){
-		$output       = explode(" ", $input);
-	}
-	else {
-		$output = str_split($input, 1);
-	}
-	$effects_output = array();
-	$effects_output = explode(",", $effects);
-    $effectsCount = count($effects_output);
-    $delay        = 0;
-    $point        = 0;
-    $count        = 0;
+    $output = array();
+    if ($wordOrletter == "word") {
+        $output = explode(" ", $input);
+    } //$wordOrletter == "word"
+    else {
+        $output = str_split($input, 1);
+    }
+    $effects_output = array();
+    $effects_output = explode(",", $effects);
+    $effectsCount   = count($effects_output);
+    $delay          = 0;
+    $point          = 0;
+    $count          = 0;
     //iterate through each word
-	echo "<$tag class='$class' style='$style'>";
+    echo "<$tag class='$class' style='$style'>";
     foreach ($output as $word) {
-        
-        echo "<div style='display:inline-block;'><div style='' class='wow " . $effects_output[rand(1, $effectsCount)-1] . "' data-wow-delay='$delay" . "." . $point . "s'><span>$word&nbsp;</span></div></div>";
+        echo "<div style='display:inline-block;'><div style='' class='wow " . $effects_output[rand(1, $effectsCount) - 1] . "' data-wow-delay='$delay" . "." . $point . "s'><span>$word&nbsp;</span></div></div>";
         //store the range of possible increments of the miliseconds into an array
         $milisecond_increments = array();
         $array_pos             = 0;
@@ -90,22 +89,20 @@ class SA_TextAnimator extends WP_Widget
     {
         extract($args, EXTR_SKIP);
         extract($instance, EXTR_SKIP);
-		
-		wordEffects($input_text, $input_second, $input_milisecond, $input_iteration, $input_effects, $input_class, $input_style, $input_tag, $input_wordOrletter);
-		
+        wordEffects($input_text, $input_second, $input_milisecond, $input_iteration, $input_effects, $input_class, $input_style, $input_tag, $input_wordOrletter);
     }
     function update($new_instance, $old_instance)
     {
-        $instance                     = array();
-        $instance['input_text']       = (!empty($new_instance['input_text'])) ? strip_tags($new_instance['input_text']) : '';
-        $instance['input_second']     = (!empty($new_instance['input_second'])) ? strip_tags($new_instance['input_second']) : '';
-        $instance['input_milisecond'] = (!empty($new_instance['input_milisecond'])) ? strip_tags($new_instance['input_milisecond']) : '';
-        $instance['input_iteration']  = (!empty($new_instance['input_iteration'])) ? strip_tags($new_instance['input_iteration']) : '';
-        $instance['input_effects']    = (!empty($new_instance['input_effects'])) ? strip_tags($new_instance['input_effects']) : '';
-		$instance['input_class']    = (!empty($new_instance['input_class'])) ? strip_tags($new_instance['input_class']) : '';
-		$instance['input_style']    = (!empty($new_instance['input_style'])) ? strip_tags($new_instance['input_style']) : '';
-		$instance['input_tag']    = (!empty($new_instance['input_tag'])) ? strip_tags($new_instance['input_tag']) : '';
-		$instance['input_wordOrletter']    = (!empty($new_instance['input_wordOrletter'])) ? strip_tags($new_instance['input_wordOrletter']) : '';
+        $instance                       = array();
+        $instance['input_text']         = (!empty($new_instance['input_text'])) ? strip_tags($new_instance['input_text']) : '';
+        $instance['input_second']       = (!empty($new_instance['input_second'])) ? strip_tags($new_instance['input_second']) : '';
+        $instance['input_milisecond']   = (!empty($new_instance['input_milisecond'])) ? strip_tags($new_instance['input_milisecond']) : '';
+        $instance['input_iteration']    = (!empty($new_instance['input_iteration'])) ? strip_tags($new_instance['input_iteration']) : '';
+        $instance['input_effects']      = (!empty($new_instance['input_effects'])) ? strip_tags($new_instance['input_effects']) : '';
+        $instance['input_class']        = (!empty($new_instance['input_class'])) ? strip_tags($new_instance['input_class']) : '';
+        $instance['input_style']        = (!empty($new_instance['input_style'])) ? strip_tags($new_instance['input_style']) : '';
+        $instance['input_tag']          = (!empty($new_instance['input_tag'])) ? strip_tags($new_instance['input_tag']) : '';
+        $instance['input_wordOrletter'] = (!empty($new_instance['input_wordOrletter'])) ? strip_tags($new_instance['input_wordOrletter']) : '';
         return $instance;
     }
     function form($instance)
@@ -145,28 +142,28 @@ class SA_TextAnimator extends WP_Widget
         else {
             $input_effects = __('Write classes seperated by commas \',\'', 'text_domain');
         }
-		// check non random class
+        // check non random class
         if (isset($instance['input_class'])) {
             $input_class = $instance['input_class'];
         } //isset($instance['input_effects'])
         else {
             $input_class = __('Add non randomised class to the surrounding tag', 'text_domain');
         }
-		// check style
+        // check style
         if (isset($instance['input_style'])) {
             $input_style = $instance['input_style'];
         } //isset($instance['input_effects'])
         else {
             $input_style = __('add style rules here', 'text_domain');
         }
-		// check tag
+        // check tag
         if (isset($instance['input_tag'])) {
             $input_tag = $instance['input_tag'];
         } //isset($instance['input_effects'])
         else {
             $input_tag = __('write type of tag here', 'text_domain');
         }
-		// check word or Letter
+        // check word or Letter
         if (isset($instance['input_wordOrletter'])) {
             $input_wordOrletter = $instance['input_wordOrletter'];
         } //isset($instance['input_effects'])
@@ -289,25 +286,27 @@ class SA_TextAnimator extends WP_Widget
 ?>" name="<?php
         echo $this->get_field_name('input_wordOrletter');
 ?>">
-<option value="word" <?php echo ($input_wordOrletter =='word' ? 'selected="selected"' : ''); ?> >Word</option>
-<option value="letter" <?php echo ($input_wordOrletter =='letter' ? 'selected="selected"' : ''); ?>>Letter</option>
+<option value="word" <?php
+        echo ($input_wordOrletter == 'word' ? 'selected="selected"' : '');
+?> >Word</option>
+<option value="letter" <?php
+        echo ($input_wordOrletter == 'letter' ? 'selected="selected"' : '');
+?>>Letter</option>
 </select>
 
 	</p>
-	<?php 
+	<?php
     }
 }
 add_action('widgets_init', function()
 {
     register_widget('SA_TextAnimator');
 });
-
-function SA_add_resources() 
+function SA_add_resources()
 {
-    wp_enqueue_style( 'animated_css', plugins_url( '/css/animate.css', __FILE__ ) );
-	wp_enqueue_script( 'wow_animated', plugins_url( '/js/wow.min.js', __FILE__ ) );
-	wp_enqueue_script( 'set_up', plugins_url( '/js/setup.js', __FILE__ ) );
+    wp_enqueue_style('animated_css', plugins_url('/css/animate.css', __FILE__));
+    wp_enqueue_script('wow_animated', plugins_url('/js/wow.min.js', __FILE__));
+    wp_enqueue_script('set_up', plugins_url('/js/setup.js', __FILE__));
 }
-
-add_action( 'wp_enqueue_scripts', 'SA_add_resources' );
+add_action('wp_enqueue_scripts', 'SA_add_resources');
 ?>
