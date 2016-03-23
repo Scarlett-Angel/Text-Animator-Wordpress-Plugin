@@ -18,9 +18,11 @@ function wordEffects($input, $second, $milisecond, $iteration, $effects, $class,
     $output = array();
     if ($wordOrletter == "word") {
         $output = explode(" ", $input);
+		$space = " ";
     } //$wordOrletter == "word"
     else {
         $output = str_split($input, 1);
+		$space = "";
     }
     $effects_output = array();
     $effects_output = explode(",", $effects);
@@ -34,7 +36,10 @@ function wordEffects($input, $second, $milisecond, $iteration, $effects, $class,
     //iterate through each word
     echo "<$tag class='$class' style='$style'>";
     foreach ($output as $word) {
-        echo "<div style='display:inline-block;'><div style='' class='wow " . $effects_output[rand(1, $effectsCount) - 1] . "' data-wow-delay='$delay" . "." . $point . "s'><span>$word&nbsp;</span></div></div>";
+		if ($word == " ")
+		{$word = "&nbsp;";}
+		
+        echo "<div style='display:inline-block;'><div style='' class='wow " . $effects_output[rand(1, $effectsCount) - 1] . "' data-wow-delay='$delay" . "." . $point . "s'><span>$word$space</span></div></div>";
         //store the range of possible increments of the miliseconds into an array
         $milisecond_increments = array();
         $array_pos             = 0;
